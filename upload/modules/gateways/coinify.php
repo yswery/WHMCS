@@ -23,7 +23,7 @@
 
 		$link = '<a href="' . $url . '">' . $params['langpaynow'] . '</a>';
 
-		if (stripos($params['returnurl'], 'viewinvoice') === false)
+		if (stripos($params['returnurl'], 'viewinvoice') === false || stripos($_SERVER['REQUEST_URI'], 'complete') !== false)
 		{
 			header('Location: ' . $url);
 			exit;
