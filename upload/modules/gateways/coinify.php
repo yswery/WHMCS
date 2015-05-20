@@ -1,4 +1,7 @@
 <?php
+	define('coinify_plugin_name', 'WHMCS');
+	define('coinify_plugin_version', '1.0');
+
 	function coinify_config()
 	{
 		$configarray = array(
@@ -15,7 +18,17 @@
 		curl_setopt_array($ch, array(
 		CURLOPT_URL => 'https://coinify.com/api/v1/invoice',
 		CURLOPT_USERPWD => $params["api"],
-		CURLOPT_POSTFIELDS => 'price=' . number_format($params["amount"], 2, '.', '') . '&currency=' . $params['currency'] . '&item=' . $params["description"] . '&custom=' . json_encode(array('invoiceid' => $params['invoiceid'], 'returnurl' => rawurlencode($params['systemurl']), 'cancelurl' => rawurlencode($params['systemurl']), 'plugin' => 'WHMCS')),
+		CURLOPT_POSTFIELDS => 'price=' . number_format($params["amount"], 2, '.', '') . 
+							  '&currency=' . $params['currency'] . 
+							  '&item=' . $params["description"] . 
+							  '&custom=' . json_encode(array(
+							  		'invoiceid' => $params['invoiceid'], 
+							  		'returnurl' => rawurlencode($params['systemurl']), 
+							  		'cancelurl' => rawurlencode($params['systemurl']),
+									'callbackurl' => rawurlencode($params['systemurl'] . '/modules/gateways/callback/coinify.php'),
+							  		'plugin_name' => coinify_plugin_name,
+							  		'plugin_version' => coinify_plugin_version
+							  		)),
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_HTTPAUTH => CURLAUTH_BASIC));
 		$url = curl_exec($ch);

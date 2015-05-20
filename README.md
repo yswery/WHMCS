@@ -22,10 +22,9 @@ Configuration Instructions:
 ==========================
     1. Upload files to your WHMCS installation.
     2. Go to your WHMCS administration. Payment Gateways -> "Coinify" click [Activate]
-    3. In Coinify Instant Payment Notification (https://coinify.com/merchant/ipn) Enter the link to your callback of Coinify WHMCS Payment Module. (http://YOUR_WHMCS_URL/modules/gateways/callback/coinify.php)
-    4. Enter a strong Secret in Coinify Secret.
-    5. In module settings "API" <- set your Coinify Invoice API Key, which can be generate under API Keys, Invoice.
-    6. In module settings "Secret" <- Enter your Coinify Secret.
+    3. Enter a strong Secret in Coinify Secret.
+    4. In module settings "API" <- set your Coinify Invoice API Key, which can be generate under API Keys, Invoice.
+    5. In module settings "Secret" <- Enter your Coinify Secret.
 
 ### Tested with:
 
