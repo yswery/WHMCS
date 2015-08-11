@@ -10,8 +10,8 @@ THE SOFTWARE.
 
 About
 =====
-+ Coinify for WHMCS.
-+ Version 0.2
++ Payment gateway for WHMCS using Coinify version 3 API
++ Version 0.1
 	
 System Requirements:
 ===================
@@ -22,10 +22,4 @@ Configuration Instructions:
 ==========================
     1. Upload files to your WHMCS installation.
     2. Go to your WHMCS administration. Payment Gateways -> "Coinify" click [Activate]
-    3. Enter a strong Secret in Coinify Secret.
-    4. In module settings "API" <- set your Coinify Invoice API Key, which can be generate under API Keys, Invoice.
-    5. In module settings "Secret" <- Enter your Coinify Secret.
-
-### Tested with:
-
-+ WHMCS
+    3. Provide the values from your Coinify account to the payment gateway.
