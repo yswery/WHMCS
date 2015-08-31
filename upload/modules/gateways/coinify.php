@@ -53,7 +53,7 @@
         $payment_url = isset($result['data']['payment_url']) ? $result['data']['payment_url'] : '';
 
         $code = <<<EOT
-<form id="myForm" method="{$payment_url}">
+<form id="myForm" method="GET" action="{$payment_url}">
     <input type="submit" value="Pay Now" />
 </form>
 EOT;
