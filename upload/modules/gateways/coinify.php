@@ -1,62 +1,43 @@
 <?php
-	define('coinify_plugin_name', 'WHMCS');
-	define('coinify_plugin_version', '0.1');
+define('coinify_plugin_name', 'WHMCS');
+define('coinify_plugin_version', '0.1');
 
-	function coinify_config()
-	{
-		$configarray = array(
-			"FriendlyName" => array("Type" => "System", "Value" => "Coinify"),
-			"api" => array("FriendlyName" => "API Key", "Type" => "text", "Size" => "40", ),
-			"secret" => array("FriendlyName" => "API Secret", "Type" => "text", "Size" => "40", ),
-            "ipn" => array("FriendlyName" => "IPN Secret", "Type" => "text", "Size" => "40", )
-		);
-		return $configarray;
-	}
+function coinify_config()
+{
+    $configarray = array(
+        "FriendlyName" => array("Type" => "System", "Value" => "Coinify"),
+        "api" => array("FriendlyName" => "API Key", "Type" => "text", "Size" => "40", ),
+        "secret" => array("FriendlyName" => "API Secret", "Type" => "text", "Size" => "40", ),
+        "ipn" => array("FriendlyName" => "IPN Secret", "Type" => "text", "Size" => "40", )
+    );
+    return $configarray;
+}
 
-	function coinify_link($params)
-	{
-        // Generate a nonce
-        $mt = explode(' ', microtime());
-        $nonce = $mt[1] . substr($mt[0], 2, 6);
+function coinify_link($params)
+{
+    include('coinify/CoinifyAPI.php');
 
-        // Concatenate the nonce and the API key
-        $message = $nonce . $params["api"];
-        // Compute the signature and convert it to lowercase
-        $signature = strtolower( hash_hmac('sha256', $message, $params["secret"], false ) );
+    $api = new CoinifyAPI( $params["api"], $params["secret"] );
 
-        // Construct the HTTP Authorization header.
-        $auth_header = "Authorization: Coinify apikey=\"" . $params["api"] . "\", nonce=\"$nonce\", signature=\"$signature\"";
+    $custom = array('invoiceid' => $params['invoiceid']);
 
-        $params = array(
-            'amount' => number_format($params["amount"], 2, '.', ''),
-            'currency' => $params['currency'],
-            'plugin_name' => coinify_plugin_name,
-            'plugin_version' => coinify_plugin_version,
-            'description' => $params["description"],
-            'callback_url' => $params['systemurl'] . '/modules/gateways/callback/coinify.php',
-            'return_url' => $params['systemurl'] . '/clientarea.php',
-            'custom' => array(
-                'invoiceid' => $params['invoiceid']
-            )
-        );
+    $result = $api->invoiceCreate(
+        $params["amount"],
+        $params['currency'],
+        coinify_plugin_name,
+        coinify_plugin_version,
+        $params["description"],
+        $custom,
+        $params['systemurl'] . '/modules/gateways/callback/coinify.php',
+        null,
+        $params['systemurl'] . '/viewinvoice.php?id=' . $params['invoiceid']
+    );
 
-        $url = 'https://api.coinify.com/v3/invoices';
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array($auth_header));
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $result = json_decode( curl_exec($ch), true );
-        curl_close($ch);
-
-        $payment_url = isset($result['data']['payment_url']) ? $result['data']['payment_url'] : '';
-
-        $code = <<<EOT
-<form id="myForm" method="GET" action="{$payment_url}">
+    $code = <<<EOT
+<form id="myForm" method="GET" action="{$result['data']['payment_url']}">
     <input type="submit" value="Pay Now" />
 </form>
 EOT;
-        return $code;
-	}
+    return $code;
+}
 ?>
