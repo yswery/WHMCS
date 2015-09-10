@@ -25,19 +25,37 @@ $body = file_get_contents('php://input');
 
 $arr = json_decode($body, true);
 
+// Always reply with a HTTP 200 OK status code and an empty body, regardless of the result of validating the callback
+header('HTTP/1.1 200 OK');
+
 if (!$callback->validateCallback($body, $signature)) {
     // Invalid signature, disregard this callback
     logTransaction($gateway["name"], $body, 'Unsuccessful'); # Save to Gateway Log: name, data array, status
-    return false;
+    return;
 }
 
-if ($arr['data']['state'] == 'complete') {
-    // update payment as fulfilled
-    $invoiceid = checkCbInvoiceID($arr['data']["custom"]["invoiceid"], $gateway["name"]); # Checks invoice ID is a valid invoice number or ends processing
+// Find invoice id from provided Coinify POST
+$invoiceid = checkCbInvoiceID($arr['data']["custom"]["invoiceid"], $gateway["name"]); # Checks invoice ID is a valid invoice number or ends processing
 
-    addInvoicePayment($invoiceid, $arr['data']["bitcoin"]["address"], $arr['data']["native"]["amount"], 0, $gatewaymodule); # Apply Payment to Invoice: invoiceid, transactionid, amount paid, fees, modulename
-    logTransaction($gateway["name"], $body, 'Successful'); # Save to Gateway Log: name, data array, status
+// Get bitcoin address used for payment, as to be used for transaction id
+$txid = $arr['data']["bitcoin"]["address"];
+    
+checkCbTransID($txid);
 
-    // Valid signature
-    return true;
+switch ($arr['data']['state']) {
+    case 'complete': {
+        addInvoicePayment($invoiceid, $txid, $arr['data']["native"]["amount"], 0, $gatewaymodule); # Apply Payment to Invoice: invoiceid, transactionid, amount paid, fees, modulename
+        logTransaction($gateway["name"], $body, 'Successful'); # Save to Gateway Log: name, data array, status
+        break;
+    }
+
+    case 'paid': {
+        logTransaction($gateway["name"], $body, 'We have received payments, but they are not yet confirmed enough');
+        break;
+    }
+
+    case 'expired': {
+        logTransaction($gateway["name"], $body, 'The transaction is expired, do not process!');
+        break;
+    }
 }
