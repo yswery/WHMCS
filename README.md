@@ -11,7 +11,7 @@ THE SOFTWARE.
 About
 =====
 + Payment gateway for WHMCS using Coinify version 3 API
-+ Version 0.1
++ Version 0.2
 	
 System Requirements:
 ===================
