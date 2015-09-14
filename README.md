@@ -23,3 +23,12 @@ Configuration Instructions:
     1. Upload files to your WHMCS installation.
     2. Go to your WHMCS administration. Payment Gateways -> "Coinify" click [Activate]
     3. Provide the values from your Coinify account to the payment gateway.
+
+Changelog:
+===================
++ 0.2 September 14, 2015
+Bug fixed with wrong redirect after payment.
+Callback issue resulting in multiple payments fixed
+
++ 0.1
+Fixed bug with QR code not being generated in checkout
