@@ -27,7 +27,7 @@ Configuration Instructions:
 Changelog:
 ===================
 + 0.2 September 14, 2015
-Bug fixed with wrong redirect after payment.
-Callback issue resulting in multiple payments fixed
+	Bug fixed with wrong redirect after payment.
+	Callback issue resulting in multiple payments fixed
 + 0.1
-Fixed bug with QR code not being generated in checkout
+	Fixed bug with QR code not being generated in checkout
