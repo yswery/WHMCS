@@ -1,5 +1,3 @@
-Copyright (C) 2014 by Coinify
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,8 +24,8 @@ Configuration Instructions:
 
 Changelog:
 ===================
-+ 0.2 September 14, 2015
-	Bug fixed with wrong redirect after payment.
-	Callback issue resulting in multiple payments fixed
++ 0.2 (September 14, 2015)
+Bug fixed with wrong redirect after payment.
+Callback issue resulting in multiple payments fixed
 + 0.1
-	Fixed bug with QR code not being generated in checkout
+Fixed bug with QR code not being generated in checkout
