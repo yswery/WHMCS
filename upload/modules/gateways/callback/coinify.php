@@ -1,7 +1,12 @@
 <?php
 
 # Required File Includes
-include("../../../dbconnect.php");
+if (file_exists('../../../dbconnect.php'))
+{ include '../../../dbconnect.php'; }
+else if (file_exists('../../../init.php'))
+{ include '../../../init.php'; }
+else
+{ exit("error"); }
 include("../../../includes/functions.php");
 include("../../../includes/gatewayfunctions.php");
 include("../../../includes/invoicefunctions.php");
@@ -39,7 +44,7 @@ $invoiceid = checkCbInvoiceID($arr['data']["custom"]["invoiceid"], $gateway["nam
 
 // Get bitcoin address used for payment, as to be used for transaction id
 $txid = $arr['data']["bitcoin"]["address"];
-    
+
 checkCbTransID($txid);
 
 switch ($arr['data']['state']) {

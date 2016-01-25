@@ -9,13 +9,13 @@ THE SOFTWARE.
 About
 =====
 + Payment gateway for WHMCS using Coinify version 3 API
-+ Version 0.2
-	
++ Version 0.3
+
 System Requirements:
 ===================
 + Curl PHP Extension
 + JSON Encode
-  
+
 Configuration Instructions:
 ==========================
     1. Upload files to your WHMCS installation.
@@ -24,9 +24,12 @@ Configuration Instructions:
 
 Changelog:
 ===================
+	Version 0.3 (January 25, 2015)
+	Fix bug with database connect file. Now works on version 6.2.0 and 6.1.1.
+
 	Version 0.2 (September 14, 2015)
 	Bug fixed with wrong redirect after payment.
 	Callback issue resulting in multiple payments fixed
-	
+
 	Version 0.1
 	Fixed bug with QR code not being generated in checkout
