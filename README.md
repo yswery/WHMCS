@@ -24,7 +24,7 @@ Configuration Instructions:
 
 Changelog:
 ===================
-	Version 0.3 (January 25, 2015)
+	Version 0.3 (January 27, 2015)
 	Fix bug with database connect file. Now works on version 6.2.0 and 6.1.1.
 
 	Version 0.2 (September 14, 2015)
