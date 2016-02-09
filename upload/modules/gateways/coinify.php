@@ -1,6 +1,6 @@
 <?php
 define('coinify_plugin_name', 'WHMCS');
-define('coinify_plugin_version', '0.1');
+define('coinify_plugin_version', '0.3');
 
 function coinify_config()
 {
