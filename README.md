@@ -1,13 +1,11 @@
-<span class="badges">
-![Build Status](https://build.coinify.com/status/INT-WHMCS)
-</span>
+![Build Status](https://bamboo.coinify.com/plugins/servlet/wittified/build-status/INT-WHMCS)
 
 About
 =====
 Visit our [API Documentation](https://api.coinify.com) for custom integration.
 
 + Payment gateway for WHMCS using Coinify version 3 API
-+ Version 0.3
++ Version 0.4
 
 System Requirements:
 ===================
@@ -21,7 +19,10 @@ Configuration Instructions:
     3. Provide the values from your Coinify account to the payment gateway.
 
 Changelog:
-===================
+==========
+	Version 0.4
+	Fix bug with 'Convert to for processing' and invoices in another currency was 	marked as partially paid.
+
 	Version 0.3 (January 27, 2015)
 	Fix bug with database connect file. Now works on version 6.2.0 and 6.1.1.
 
@@ -32,6 +33,11 @@ Changelog:
 	Version 0.1
 	Fixed bug with QR code not being generated in checkout
 
+
+### Tested with:
+* WHMCS V6.3.1
+* WHMCS V6.2.0
+* WHMCS V6.1.1
 
 #### Disclaimer:
 
