@@ -45,6 +45,9 @@ $invoiceid = checkCbInvoiceID($arr['data']["custom"]["invoiceid"], $gateway["nam
 // Get bitcoin address used for payment, as to be used for transaction id
 $txid = $arr['data']["bitcoin"]["address"];
 
+// Blank amount will be the full amount of the invoice
+$amount = '';
+
 checkCbTransID($txid);
 
 switch ($arr['data']['state']) {
