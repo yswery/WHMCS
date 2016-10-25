@@ -15,7 +15,9 @@ function coinify_config()
 
 function coinify_link($params)
 {
-    include('coinify/CoinifyAPI.php');
+    if (class_exists('CoinifyAPI') === false){
+        require_once('coinify/CoinifyAPI.php');
+    }
 
     $api = new CoinifyAPI( $params["api"], $params["secret"] );
 
